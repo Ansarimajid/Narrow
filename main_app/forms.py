@@ -137,7 +137,7 @@ class StaffForm(CustomUserForm):
     mon_sal = forms.IntegerField()
     year_sal = forms.IntegerField()
     address = forms.CharField(max_length=100)
-    subject_expertise = forms.CharField(max_length=100)
+    subject_expertise = forms.ChoiceField(choices=Staff.SUBJECT_CHOICES)
     entitled_el = forms.IntegerField()
     form_copy = forms.FileField(required=False)
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
