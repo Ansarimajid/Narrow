@@ -96,7 +96,7 @@ def add_staff(request):
 
         else:
             messages.error(request, "Please fulfill all requirements")
-    print(request.POST)
+    # print(request.POST)
     return render(request, 'hod_template/add_staff_template.html', context)
 
 
