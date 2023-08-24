@@ -10,6 +10,10 @@ class FormSettings(forms.ModelForm):
         for field in self.visible_fields():
             field.field.widget.attrs['class'] = 'form-control'
 
+        if 'subject_expertise' in self.fields:
+            self.fields['subject_expertise'].widget.attrs['class'] = 'checkbox-se'
+
+
 
 class NoteForm(forms.ModelForm):
     grade = forms.ModelMultipleChoiceField(
