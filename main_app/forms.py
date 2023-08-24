@@ -2,7 +2,7 @@
 
 from django import forms
 from .models import Note, StaffNote, CustomUser, Student, Admin, Staff, Event, Board, Stream, Grade
-
+from django.forms.widgets import CheckboxSelectMultiple
 
 class FormSettings(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -128,7 +128,11 @@ class StudentForm(CustomUserForm):
             'mother_occupation',
             'addmission_form_fees_paid'
         ]
-
+class CustomCheckboxSelectMultiple(CheckboxSelectMultiple):
+    def __init__(self, *args, **kwargs):
+        attrs = kwargs.pop('attrs', {})
+        attrs['class'] = 'checkbox-se'  # Add your custom class here
+        super().__init__(*args, attrs=attrs, **kwargs)
 
 class StaffForm(CustomUserForm):
     phone_no = forms.CharField(max_length=20)
@@ -137,7 +141,10 @@ class StaffForm(CustomUserForm):
     mon_sal = forms.IntegerField()
     year_sal = forms.IntegerField()
     address = forms.CharField(max_length=100)
-    subject_expertise = forms.ChoiceField(choices=Staff.SUBJECT_CHOICES)
+    subject_expertise = forms.MultipleChoiceField(
+        widget=CustomCheckboxSelectMultiple,
+        choices=Staff.SUBJECT_CHOICES,
+    )
     entitled_el = forms.IntegerField()
     form_copy = forms.FileField(required=False)
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
