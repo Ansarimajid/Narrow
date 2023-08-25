@@ -36,7 +36,7 @@ def add_staff(request):
             mon_sal = staff_form.cleaned_data.get('mon_sal')
             year_sal = staff_form.cleaned_data.get('year_sal')
             address = staff_form.cleaned_data.get('address')
-            subject_expertise = staff_form.cleaned_data.get('subject_expertise')
+            subject_expertise_queryset = staff_form.cleaned_data.get('subject_expertise')
             entitled_el = staff_form.cleaned_data.get('entitled_el')
             form_copy = request.FILES.get("form_copy")
             date_of_birth = staff_form.cleaned_data.get('date_of_birth')
@@ -61,7 +61,7 @@ def add_staff(request):
                               'designation': designation,
                               'mon_sal': mon_sal, 'year_sal': year_sal,
                               'address' : address,
-                                'subject_expertise' :subject_expertise,
+                                'subject_expertise' :subject_expertise_queryset,
                                 'entitled_el' :entitled_el,
                                 'form_copy': form_copy,
                                 'date_of_birth' :date_of_birth,
@@ -78,7 +78,7 @@ def add_staff(request):
                     staff.mon_sal = mon_sal
                     staff.year_sal = year_sal
                     staff.address = address
-                    staff.subject_expertise  = subject_expertise
+                    staff.subject_expertise.set(subject_expertise_queryset)
                     staff.entitled_el = entitled_el
                     staff.form_copy = form_copy
                     staff.date_of_birth = date_of_birth
